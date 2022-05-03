@@ -1,17 +1,9 @@
-import { ApolloServer, gql } from "apollo-server";
+import { ApolloServer } from "apollo-server";
+import { loadSchemaSync } from "@graphql-tools/load";
+import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
+import { addResolversToSchema } from "@graphql-tools/schema";
+import { join } from "path";
 
-// GraphQLスキーマの定義
-const typeDefs = gql`
-  type Word {
-    word: String
-    type: String
-  }
-  type Query {
-    words: [Word!]!
-  }
-`;
-
-// サンプルデータの定義
 const words = [
   {
     word: "hello",
@@ -31,15 +23,19 @@ const words = [
   },
 ];
 
-// リゾルバーの定義
+const schema = loadSchemaSync(join(__dirname, "../schema.graphql"), {
+  loaders: [new GraphQLFileLoader()],
+});
+
 const resolvers = {
   Query: {
     words: () => words,
   },
 };
 
-// サーバーの起動
-const server = new ApolloServer({ typeDefs, resolvers });
+const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
+
+const server = new ApolloServer({ schema: schemaWithResolvers });
 
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
