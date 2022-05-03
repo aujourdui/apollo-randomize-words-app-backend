@@ -1,39 +1,46 @@
-import {ApolloServer, gql} from 'apollo-server';
+import { ApolloServer, gql } from "apollo-server";
 
 // GraphQLスキーマの定義
 const typeDefs = gql`
-  type Book {
-    title: String
-    author: String
+  type Word {
+    word: String
+    type: String
   }
-
   type Query {
-    books: [Book!]!
+    words: [Word!]!
   }
 `;
 
 // サンプルデータの定義
-const books = [
+const words = [
   {
-    title: 'The Awakening',
-    author: 'Kate Chopin',
+    word: "hello",
+    type: "noun",
   },
   {
-    title: 'City of Glass',
-    author: 'Paul Auster',
+    word: "come",
+    type: "verb",
+  },
+  {
+    word: "active",
+    type: "adjective",
+  },
+  {
+    word: "possibly",
+    type: "adverb",
   },
 ];
 
 // リゾルバーの定義
 const resolvers = {
   Query: {
-    books: () => books,
+    words: () => words,
   },
 };
 
 // サーバーの起動
-const server = new ApolloServer({typeDefs, resolvers});
+const server = new ApolloServer({ typeDefs, resolvers });
 
-server.listen().then(({url}) => {
+server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
