@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
+    "target": "es5",
     "module": "commonjs",
-    "esModuleInterop": true,
-    "target": "es6",
-    "moduleResolution": "node",
+    "types": ["node"],
+    "lib": ["es6"],
     "sourceMap": true,
-    "outDir": "dist"
-  },
-  "lib": ["es2015"]
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "jsx": "react-jsx"
+  }
+  // "include": ["./**/*.ts"]
 }
