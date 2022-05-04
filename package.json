@@ -6,12 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn src/index.ts",
-    "start": "node build/src/index.js"
+    "start": "node build/src/index.js",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/typescript": "^2.4.8",
+    "@graphql-codegen/typescript-resolvers": "^2.6.1",
     "ts-node": "^10.7.0",
     "ts-node-dev": "^1.1.8"
   },
