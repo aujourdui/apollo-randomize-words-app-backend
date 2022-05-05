@@ -1,27 +1,57 @@
-import { ApolloServer, AuthenticationError } from "apollo-server";
+import { ApolloServer } from "apollo-server";
 import { loadSchemaSync } from "@graphql-tools/load";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { addResolversToSchema } from "@graphql-tools/schema";
 import { join } from "path";
-import { Resolvers } from "./types/generated/graphql";
-import { Context } from "./types/context";
 
 const words = [
   {
-    word: "hello",
-    type: "noun",
+    word: "Hello",
+    type: "greeting",
   },
   {
-    word: "come",
-    type: "verb",
+    word: "Sun",
+    type: "nature",
   },
   {
-    word: "active",
+    word: "Chocolate",
+    type: "food",
+  },
+  {
+    word: "Pokemon",
+    type: "culture",
+  },
+  {
+    word: "Business",
+    type: "business",
+  },
+  {
+    word: "Art",
+    type: "culture",
+  },
+  {
+    word: "Stereo",
+    type: "culture",
+  },
+  {
+    word: "Frog",
+    type: "adverb",
+  },
+  {
+    word: "Mountain",
+    type: "nature",
+  },
+  {
+    word: "KFC",
+    type: "business",
+  },
+  {
+    word: "Heaven",
     type: "adjective",
   },
   {
-    word: "possibly",
-    type: "adverb",
+    word: "Dice",
+    type: "entertainment",
   },
 ];
 
@@ -31,36 +61,13 @@ const schema = loadSchemaSync(join(__dirname, "../schema.graphql"), {
 
 const resolvers = {
   Query: {
-    words: (_parent, _args, _context) => {
-      return words;
-    },
+    words: () => words,
   },
 };
 
 const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
 
-const getUser = (token?: string): Context["user"] => {
-  if (token === undefined) {
-    throw new AuthenticationError(
-      "認証されていないユーザーはリソースにアクセスできません"
-    );
-  }
-
-  return {
-    name: "dummy name",
-    email: "dummy@example.com",
-    token,
-  };
-};
-
-const server = new ApolloServer({
-  schema: schemaWithResolvers,
-  context: ({ req }) =>
-    ({
-      user: getUser(req.headers.authorization),
-    } as Context),
-  debug: false,
-});
+const server = new ApolloServer({ schema: schemaWithResolvers });
 
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
