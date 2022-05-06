@@ -4,64 +4,18 @@ import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { addResolversToSchema } from "@graphql-tools/schema";
 import { join } from "path";
 
-const words = [
-  {
-    word: "Hello",
-    type: "greeting",
-  },
-  {
-    word: "Sun",
-    type: "nature",
-  },
-  {
-    word: "Chocolate",
-    type: "food",
-  },
-  {
-    word: "Pokemon",
-    type: "culture",
-  },
-  {
-    word: "Business",
-    type: "business",
-  },
-  {
-    word: "Art",
-    type: "culture",
-  },
-  {
-    word: "Stereo",
-    type: "culture",
-  },
-  {
-    word: "Frog",
-    type: "adverb",
-  },
-  {
-    word: "Mountain",
-    type: "nature",
-  },
-  {
-    word: "KFC",
-    type: "business",
-  },
-  {
-    word: "Heaven",
-    type: "adjective",
-  },
-  {
-    word: "Dice",
-    type: "entertainment",
-  },
-];
+import { words } from "./query/words";
 
 const schema = loadSchemaSync(join(__dirname, "../schema.graphql"), {
   loaders: [new GraphQLFileLoader()],
 });
 
+const sentences = [{ sentence: "This is first idea" }];
+
 const resolvers = {
   Query: {
     words: () => words,
+    sentences: () => sentences,
   },
 };
 
