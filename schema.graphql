@@ -10,5 +10,10 @@ type Query {
   sentences: [Sentence!]!
 }
 type Mutation {
-  addSentence(sentence: String): Sentence
+  addSentence(sentence: String!): String
 }
+
+# type Sentence {
+#   id: String
+#   sentence: String
+# }

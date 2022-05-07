@@ -11,11 +11,20 @@ const schema = loadSchemaSync(join(__dirname, "../schema.graphql"), {
 });
 
 const sentences = [{ sentence: "This is first idea" }];
+// const sentences = [{ id: "1", sentence: "This is first idea" }];
 
 const resolvers = {
   Query: {
     words: () => words,
     sentences: () => sentences,
+  },
+  Mutation: {
+    addSentence: (_parent, args, _context, _info) => {
+      return sentences.push({
+        // id: Date.now().toString(),
+        sentence: args.sentence,
+      });
+    },
   },
 };
 
