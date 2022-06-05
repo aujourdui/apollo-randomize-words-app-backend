@@ -1,7 +1,16 @@
 type Word {
+  id: String
   word: String
   type: String
 }
+type Sentence {
+  id: String
+  sentence: String
+}
 type Query {
   words: [Word!]!
+  sentences: [Sentence!]!
+}
+type Mutation {
+  addSentence(sentence: String!): String
 }
