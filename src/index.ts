@@ -10,8 +10,7 @@ const schema = loadSchemaSync(join(__dirname, "../schema.graphql"), {
   loaders: [new GraphQLFileLoader()],
 });
 
-const sentences = [{ sentence: "This is first idea" }];
-// const sentences = [{ id: "1", sentence: "This is first idea" }];
+const sentences = [{ id: "1", sentence: "This is first idea" }];
 
 const resolvers = {
   Query: {
@@ -21,7 +20,7 @@ const resolvers = {
   Mutation: {
     addSentence: (_parent, args, _context, _info) => {
       return sentences.push({
-        // id: Date.now().toString(),
+        id: Date.now().toString(),
         sentence: args.sentence,
       });
     },

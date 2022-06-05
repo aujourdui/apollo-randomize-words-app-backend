@@ -1,8 +1,10 @@
 type Word {
+  id: String
   word: String
   type: String
 }
 type Sentence {
+  id: String
   sentence: String
 }
 type Query {
@@ -12,8 +14,3 @@ type Query {
 type Mutation {
   addSentence(sentence: String!): String
 }
-
-# type Sentence {
-#   id: String
-#   sentence: String
-# }
